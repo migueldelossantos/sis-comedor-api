@@ -1,0 +1,10 @@
+{
+    "nombre" : "API Rest Xipe - Sistema Comedor - Carnitas",
+    "configDB" : {
+        "Host":"mongodb://xipe:12345678@localhost:27017/xp_siscomedor"
+    },
+    "configToken" : {
+        "SEED" : "secret",
+        "expiration" : "24h"
+    }
+}
