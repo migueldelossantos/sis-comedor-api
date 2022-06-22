@@ -4,7 +4,8 @@ const mongoose = require('mongoose');
 const config = require('config');
 
 //Autor
-
+const users = require('./routers/users');
+const auth = require('./routers/auth');
 
 //DB
 mongoose.connect(
@@ -22,6 +23,8 @@ app.use(express.urlencoded({extended:true}));
 app.use(morgan('tiny'));
 
 //Ruters Autor
+app.use("/api/users",users);
+app.use("/api/login",auth);
 
 const port = process.env.PORT || 3000;
 
