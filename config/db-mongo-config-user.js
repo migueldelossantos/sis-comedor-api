@@ -1,3 +1,4 @@
+//Lineas para Crear Rol en MongoDB
 db.createRole(
     {
         role:"rolAdmin",
@@ -11,6 +12,7 @@ db.createRole(
     }
     );
 
+//Linea para Crear Usuario con Rol anterior
 db.createUser(
     {
         user:"xipe",
