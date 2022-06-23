@@ -3,12 +3,12 @@ const bcrypt = require('bcrypt');
 const jsonwebtoken = require('jsonwebtoken');
 const config = require('config');
 
-const User = require('../models/user_model');
+const Usuario = require('../models/usuario_model');
 
 const ruta = express.Router();
 
 ruta.post('/',(req,res)=>{
-    User.findOne({clave : req.body.clave})
+    Usuario.findOne({clave : req.body.correo})
         .then(data=>{
             if(data){
                 let passwordValidate = bcrypt.compareSync(req.body.password,data.password);
