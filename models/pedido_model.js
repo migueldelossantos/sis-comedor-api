@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 
 const Schema = mongoose;
 
-const pedidoShema = mongoose({
+const pedidoShema = mongoose.Schema({
     fecha:{
         type:Date,
         default:Date.now,

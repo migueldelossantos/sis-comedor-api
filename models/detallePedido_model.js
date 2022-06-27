@@ -18,7 +18,15 @@ const detallePedidoSchema = mongoose.Schema({
     },
     productoId:{
         type:Schema.Types.ObjectId,
-        require:true
+        ref:'producto',
+        require:true,
+        index:true
+    },
+    pedidoId:{
+        type: Schema.Types.ObjectId,
+        ref:'pedido',
+        require: true,
+        index: true
     }
 });
 

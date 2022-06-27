@@ -4,8 +4,19 @@ const mongoose = require('mongoose');
 const config = require('config');
 
 //Autor
-const users = require('./routers/usuarios');
 const auth = require('./routers/auth');
+const cajas = require('./routers/cajas');
+const clientes = require('./routers/clientes');
+const detallesPedidos = require('./routers/detallesPedidos');
+const direcciones = require('./routers/direcciones');
+const empleados = require('./routers/empleados');
+const mesas = require('./routers/mesas');
+const pedidos = require('./routers/pedidos');
+const productos = require('./routers/productos');
+const roles = require('./routers/roles');
+const secciones = require('./routers/secciones');
+const tipoPedidos = require('./routers/tipoPedidos');
+const usuarios = require('./routers/usuarios');
 
 //DB
 mongoose.connect(
@@ -23,8 +34,20 @@ app.use(express.urlencoded({extended:true}));
 app.use(morgan('tiny'));
 
 //Ruters Autor
-app.use("/api/usuarios",users);
 app.use("/api/login",auth);
+app.use("/api/cajas",cajas);
+app.use("/api/clientes",clientes);
+app.use("/api/detallesPedidos",detallesPedidos);
+app.use("/api/direcciones",direcciones);
+app.use("/api/empleados",empleados);
+app.use("/api/mesas",mesas);
+app.use("/api/pedidos",pedidos);
+app.use("/api/productos",productos);
+app.use("/api/roles",roles);
+app.use("/api/secciones",secciones);
+app.use("/api/tipoPedidos",tipoPedidos);
+app.use("/api/usuarios",usuarios);
+
 
 const port = process.env.PORT || 3000;
 
