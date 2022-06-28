@@ -14,13 +14,15 @@ ruta.get('/',verificarToken,(req,res)=>{
             usuarios : users
         })
     }).catch(err=>{
-        error : err
+        res.status(400).json({
+            error : err
+        })
     })
 })
 
 //Get Usuario By Id
 ruta.get('/:id',verificarToken,(req,res)=>{
-    let resultado = getUsuarioById(id);
+    let resultado = getUsuarioById(req.params.id);
     resultado.then(us=>{
         res.json({
             usuario : us
@@ -35,13 +37,13 @@ ruta.get('/:id',verificarToken,(req,res)=>{
 //Alta de Usuario
 ruta.post('/',(req,res)=>{
 
-    Usuario.findOne({clave:req.body.correo},(error,user)=>{
+    Usuario.findOne({correo:req.body.correo},(error,user)=>{
         if(error){
             return res.status(400).json({error:"Server Error!"});
         }
         if(user){
             return res.status(400).json({
-                error : "Ya existe un usuario registrado con esa Clave"
+                error : "Ya existe un usuario registrado con ese Correo"
             })
         }else{
             //Da de Alta Usuario
@@ -62,7 +64,7 @@ ruta.post('/',(req,res)=>{
 
 //Actualizacion de Usuario
 ruta.put('/:id',verificarToken,(req,res)=>{
-    let resultado = actualizarUsuario(req.body.id,req.body);
+    let resultado = actualizarUsuario(req.params.id,req.body);
 
     resultado.then(us=>{
         res.json({
@@ -77,7 +79,7 @@ ruta.put('/:id',verificarToken,(req,res)=>{
 
 //Eliminar Usuario
 ruta.delete('/:id',verificarToken,(req,res)=>{
-    let resultado = eliminarUsuario(req.body.id);
+    let resultado = eliminarUsuario(req.params.id);
     resultado.then(us=>{
         res.json({
             usuario : us
@@ -114,7 +116,7 @@ async function actualizarUsuario(id,body){
         $set:{
             rolId : body.rolId,
             empleadoId : body.empleadoId,
-            estatus : body.status
+            status : body.status
         }
     },{new:true});
     return usuario;
@@ -123,7 +125,7 @@ async function actualizarUsuario(id,body){
 async function eliminarUsuario(id){
     let usuario = await Usuario.findByIdAndUpdate(id,{
         $set:{
-            estatus : 'E'
+            status : 'E'
         }
     },{new:true});
     return usuario;

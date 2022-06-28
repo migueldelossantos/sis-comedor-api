@@ -7,7 +7,7 @@ const ruta = express.Router();
 
 //Get
 ruta.get('/:id',verificarToken,(req,res)=>{
-    let resultado = getDirreccionById(req.body.id);
+    let resultado = getDirreccionById(req.params.id);
     resultado.then(direc=>{
         res.json({
             direccion : direc
@@ -21,7 +21,7 @@ ruta.get('/:id',verificarToken,(req,res)=>{
 
 //Get By Cliente
 ruta.get('/cliente/:id',verificarToken,(req,res)=>{
-    let resultado = getDireccionByCliente(id);
+    let resultado = getDireccionByCliente(req.params.id);
     resultado.then(direc=>{
         res.json({
             direccion : direc
@@ -49,7 +49,7 @@ ruta.post('/',verificarToken,(req,res)=>{
 
 //Actualizar Direccion
 ruta.put('/:id',verificarToken,(req,res)=>{
-    let resultado = actualizarDireccion(req.body.id,req.body)
+    let resultado = actualizarDireccion(req.params.id,req.body)
     resultado.then(direc=>{
         res.json({
             direccion : direc
@@ -88,7 +88,7 @@ async function crearDireccion(body){
 }
 
 async function actualizarDireccion(id,body){
-    let direccion = await Direcion.findById(id,{
+    let direccion = await Direcion.findByIdAndUpdate(id,{
         $set:{
             calle : body.calle,
             numero : body.numero,

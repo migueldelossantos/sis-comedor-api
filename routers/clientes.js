@@ -5,6 +5,7 @@ const verificarToken = require('../middlewares/auth');
 
 const ruta = express.Router();
 
+//Get Clientes
 ruta.get('/',verificarToken,(req,res)=>{
     let resultado = getClientes();
     resultado.then(clis=>{
@@ -18,8 +19,9 @@ ruta.get('/',verificarToken,(req,res)=>{
     })
 });
 
+//Get Cliente Id
 ruta.get('/:id',verificarToken,(req,res)=>{
-    let resultado = getClienteById(id);
+    let resultado = getClienteById(req.params.id);
     resultado.then(cli=>{
         res.json({
             cliente : cli
@@ -31,8 +33,9 @@ ruta.get('/:id',verificarToken,(req,res)=>{
     })
 })
 
+//Get Cliente por Nombre
 ruta.get('/nombre/:nombre',(req,res)=>{
-    let resultado = getClienteByNombre();
+    let resultado = getClienteByNombre(req.params.nombre);
     resultado.then(clis=>{
         res.json({
             clientes : clis
@@ -60,7 +63,7 @@ ruta.post('/',verificarToken,(req,res)=>{
 
 //Actualizar Cliente
 ruta.put('/:id',verificarToken,(req,res)=>{
-    let resultado = actualizarCliente(id,body);
+    let resultado = actualizarCliente(req.params.id,req.body);
     resultado.then(cli=>{
         res.json({
             cliente : cli
@@ -83,7 +86,13 @@ async function getClientes(){
 }
 
 async function getClienteByNombre(nombreCon){
-    let cliente = await Cliente.find({nombre:nombreCon});
+    console.log('nombreCon :>> ', nombreCon);
+    let cliente = await Cliente.find({
+        nombre : {
+            $regex : '.*'+nombreCon+'.*',
+            $options : "$i"
+        }
+    });
     return cliente;
 }
 
@@ -93,8 +102,7 @@ async function crearCliente(body){
         apellidos: body.apellidos,
         cel : body.cel,
         tel : body.tel,
-        rfc : body.rfc,
-        direccionId : body.direccionId
+        rfc : body.rfc
     });
     return await cliente.save();
 }

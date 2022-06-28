@@ -5,9 +5,23 @@ const verificarToken = require('../middlewares/auth');
 
 const ruta = express.Router();
 
+//Get All
+ruta.get('/',verificarToken,(req,res)=>{
+    let resultado = getTiposPedido();
+    resultado.then(tiposPed=>{
+        res.json({
+            tiposPedido : tiposPed
+        })
+    }).catch(err=>{
+        res.status(400).json({
+            error : err
+        })
+    })
+})
+
 //Get By Id
 ruta.get('/:id',verificarToken,(req,res)=>{
-    let resultado = getTipoPedById(req.body.id);
+    let resultado = getTipoPedById(req.params.id);
     resultado.then(tipoPed=>{
         res.json({
             tipoPedido : tipoPed
@@ -32,6 +46,11 @@ ruta.post('/',verificarToken,(req,res)=>{
         })
     })
 })
+
+async function getTiposPedido(){
+    let tiposPed = await TipoPedido.find();
+    return tiposPed;
+}
 
 async function getTipoPedById(id){
     let tipoPedido = await TipoPedido.findById(id);

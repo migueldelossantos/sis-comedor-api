@@ -7,7 +7,7 @@ const ruta = express.Router();
 
 //Get By Id
 ruta.get('/:id',verificarToken,(req,res)=>{
-    let resultado = getEmpleadoById(id);
+    let resultado = getEmpleadoById(req.params.id);
     resultado.then(emp=>{
         res.json({
             empleado : emp
@@ -21,7 +21,16 @@ ruta.get('/:id',verificarToken,(req,res)=>{
 
 //Get By Nombre
 ruta.get('/nombre/:nombre',verificarToken,(req,res)=>{
-    let resultado = getEmpleadoByNombre(nombre);
+    let resultado = getEmpleadoByNombre(req.params.nombre);
+    resultado.then(emps=>{
+        res.json({
+            empleados : emps
+        })
+    }).catch(err=>{
+        res.status(400).json({
+            error : err
+        })
+    })
 })
 
 //Alta Empleado
@@ -40,7 +49,7 @@ ruta.post('/',verificarToken,(req,res)=>{
 
 //Actualizar Empleado
 ruta.put('/:id',verificarToken,(req,res)=>{
-    let resultado = actualizarEmpleado(req.body.id,req.body);
+    let resultado = actualizarEmpleado(req.params.id,req.body);
     resultado.then(emp=>{
         res.json({
             empleado : emp

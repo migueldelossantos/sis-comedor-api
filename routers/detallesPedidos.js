@@ -7,7 +7,7 @@ const ruta = express.Router();
 
 //Get By Id
 ruta.get('/:id',verificarToken,(req,res)=>{
-    let resultado = getDetalleById(req.body.id);
+    let resultado = getDetalleById(req.params.id);
     resultado.then(detPed=>{
         res.json({
             detallePedido : detPed
@@ -21,7 +21,7 @@ ruta.get('/:id',verificarToken,(req,res)=>{
 
 //Get By Pedido
 ruta.get('/pedido/:pedidoId',verificarToken,(req,res)=>{
-    let resultado = getByPedidoId(req.body.pedidoId);
+    let resultado = getByPedidoId(req.params.pedidoId);
     resultado.then(detsPed=>{
         res.json({
             detallesPedido : detsPed
@@ -49,7 +49,7 @@ ruta.post('/',verificarToken,(req,res)=>{
 
 //Actualiza Detalle Pedido
 ruta.put('/:id',verificarToken,(req,res)=>{
-    let resultado = actualizarDetallePed(id,body)
+    let resultado = actualizarDetallePed(req.params.id,req.body)
     resultado.then(detPed=>{
         res.json({
             detallePedido : detPed

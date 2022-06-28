@@ -21,7 +21,7 @@ ruta.get('/',verificarToken,(req,res)=>{
 
 //Get By Id
 ruta.get('/:id',verificarToken,(req,res)=>{
-    let resultado = getProductoById(req,body.id);
+    let resultado = getProductoById(req,params.id);
     resultado.then(prod=>{
         res.json({
             producto : prod
@@ -35,7 +35,7 @@ ruta.get('/:id',verificarToken,(req,res)=>{
 
 //Get By Codigo Barra
 ruta.get('/codigoBarras/:codigoBarra',verificarToken,(req,res)=>{
-    let resultado = getProductoByCB(req.body.codigoBarra);
+    let resultado = getProductoByCB(req.params.codigoBarra);
     resultado.then(prod=>{
         res.json({
             producto : prod
@@ -63,7 +63,7 @@ ruta.post('/',verificarToken,(req,res)=>{
 
 //Actualizar Producto
 ruta.put('/:id',verificarToken,(req,res)=>{
-    let resultado = actualizarProducto(req.body.id,req.body);
+    let resultado = actualizarProducto(req.params.id,req.body);
     resultado.then(prod=>{
         res.json({
             producto : prod

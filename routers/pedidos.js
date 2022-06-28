@@ -21,7 +21,7 @@ ruta.get('/',verificarToken,(req,res)=>{
 
 //Get Pedido By Id
 ruta.get('/:id',verificarToken,(req,res)=>{
-    let resultado = getPedidoById(req.body.id);
+    let resultado = getPedidoById(req.params.id);
     resultado.then(ped=>{
         res.json({
             pedido : ped
@@ -49,7 +49,7 @@ ruta.post('/',verificarToken,(req,res)=>{
 
 //Actualizar Pedido
 ruta.put('/:id',verificarToken,(req,res)=>{
-    let resultado = actualizarPedido(req.body.id,req.body);
+    let resultado = actualizarPedido(req.params.id,req.body);
     resultado.then(ped=>{
         res.json({
             pedido : ped
@@ -63,7 +63,7 @@ ruta.put('/:id',verificarToken,(req,res)=>{
 
 //Elimnar Pedido
 ruta.delete('/:id',verificarToken,(req,res)=>{
-    let resultado = eliminarPedido(req.body.id);
+    let resultado = eliminarPedido(req.params.id);
     resultado.then(ped=>{
         res.json({
             pedido : ped

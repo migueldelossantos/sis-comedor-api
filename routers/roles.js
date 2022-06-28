@@ -5,9 +5,23 @@ const verificarToken = require('../middlewares/auth');
 
 const ruta = express.Router();
 
+//Get All
+ruta.get('/',(req,res)=>{
+    let resultado = getRoles();
+    resultado.then(rols=>{
+        res.json({
+            rol : rols
+        })
+   }).catch(err=>{
+        res.status(400).json({
+            error : err
+        })
+   })
+})
+
 //Get By Id
 ruta.get('/:id',verificarToken,(req,res)=>{
-    let resultado = getRolById(req.body.id);
+    let resultado = getRolById(req.params.id);
     resultado.then(r=>{
         res.json({
             rol : r
@@ -20,7 +34,7 @@ ruta.get('/:id',verificarToken,(req,res)=>{
 })
 
 //Alta Rol
-ruta.post('/',verificarToken,(req,res)=>{
+ruta.post('/',(req,res)=>{
    let resultado = crearRol(req.body); 
    resultado.then(r=>{
         res.json({
@@ -32,6 +46,11 @@ ruta.post('/',verificarToken,(req,res)=>{
         })
    })
 })
+
+async function getRoles(){
+    let roles = await Rol.find();
+    return roles;
+}
 
 async function getRolById(id){
     let rol = await Rol.findById(id);

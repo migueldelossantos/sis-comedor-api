@@ -19,8 +19,9 @@ ruta.get('/',verificarToken,(req,res)=>{
     })
 })
 
+//Get Seccion By Id
 ruta.get('/:id',verificarToken,(req,res)=>{
-    let resultado = getSeccionById(req.body.id);
+    let resultado = getSeccionById(req.params.id);
     resultado.then(sec=>{
         res.json({
             seccion : sec
@@ -48,7 +49,7 @@ ruta.post('/',verificarToken,(req,res)=>{
 
 //Actualizar Seccion
 ruta.put('/:id',verificarToken,(req,res)=>{
-    let resultado = actualizarSeccion(req.body.id,req.body);
+    let resultado = actualizarSeccion(req.params.id,req.body);
     resultado.then(sec=>{
         res.json({
             seccion : sec

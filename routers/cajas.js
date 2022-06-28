@@ -7,7 +7,7 @@ const ruta = express.Router();
 
 //Get By Id
 ruta.get('/:id',verificarToken,(req,res)=>{
-    let resultado = getCajaById(req.body.id);
+    let resultado = getCajaById(req.params.id);
     resultado.then(cj=>{
         res.json({
             caja : cj
@@ -21,7 +21,7 @@ ruta.get('/:id',verificarToken,(req,res)=>{
 
 //Crear Caja
 ruta.post('/',verificarToken,(req,res)=>{
-    let resultado = crearCaja();
+    let resultado = crearCaja(req.body);
     resultado.then(cj=>{
         res.json({
             caja : cj
@@ -35,7 +35,16 @@ ruta.post('/',verificarToken,(req,res)=>{
 
 //Actualizar Caja
 ruta.put('/:id',verificarToken,(req,res)=>{
-    let resultado = actualizarCaja(req.body,req.body);
+    let resultado = actualizarCaja(req.params.id,req.body);
+    resultado.then(cj=>{
+        res.json({
+            caja : cj
+        })
+    }).catch(err=>{
+        res.status(400).json({
+            error : err
+        })
+    })
 })
 
 async function getCajaById(id){

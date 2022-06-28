@@ -7,7 +7,7 @@ const ruta = express.Router();
 
 //Get By Id
 ruta.get('/:id',verificarToken,(req,res)=>{
-    let resultado = getMesaById(req.body.id);
+    let resultado = getMesaById(req.params.id);
     resultado.then(m=>{
         res.json({
             mesa : m
@@ -49,7 +49,7 @@ ruta.post('/',verificarToken,(req,res)=>{
 
 //Eliminar Mesa
 ruta.delete('/:id',verificarToken,(req,res)=>{
-    let resultado = eliminarMesa(req.body.id);
+    let resultado = eliminarMesa(req.params.id);
     resultado.then(m=>{
         res.json({
             mesa : m
@@ -63,7 +63,7 @@ ruta.delete('/:id',verificarToken,(req,res)=>{
 
 //Actualiza Mesa
 ruta.put('/:id',verificarToken,(req,res)=>{
-    let resultado = actualizarMesa(req.body.id,req.body);
+    let resultado = actualizarMesa(req.params.id,req.body);
     resultado.then(m=>{
         res.json({
             mesa : m
