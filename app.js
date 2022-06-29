@@ -45,7 +45,7 @@ app.use("/api/pedidos",pedidos);
 app.use("/api/productos",productos);
 app.use("/api/roles",roles);
 app.use("/api/secciones",secciones);
-app.use("/api/tipoPedidos",tipoPedidos);
+app.use("/api/tiposPedido",tipoPedidos);
 app.use("/api/usuarios",usuarios);
 
 

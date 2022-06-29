@@ -35,7 +35,7 @@ ruta.get('/nombre/:nombre',verificarToken,(req,res)=>{
 
 //Alta Empleado
 ruta.post('/',verificarToken,(req,res)=>{
-    let resultado = crearEmpleado(req,body);
+    let resultado = crearEmpleado(req.body);
     resultado.then(emp=>{
         res.json({
             empleado : emp
@@ -67,9 +67,13 @@ async function getEmpleadoById(id){
 }
 
 async function getEmpleadoByNombre(nom){
-    let empleado = await Empleado.find({
-        nombre : /nom/
+    let empleados = await Empleado.find({
+        nombre : {
+            $regex : '.*'+nom+'.*',
+            $options : "$i"
+        }
     })
+    return empleados;
 }
 
 async function crearEmpleado(body){

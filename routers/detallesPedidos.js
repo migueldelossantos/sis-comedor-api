@@ -79,10 +79,11 @@ async function crearDetallePedido(body){
         productoId : body.productoId,
         pedidoId : body.pedidoId
     });
-    return detallePedido;
+    return await detallePedido.save();
 }
 
 async function actualizarDetallePed(id,body){
+    console.log('id :>> ', id);
     let detallePed = await DetallePedido.findByIdAndUpdate(id,{
         $set : {
             cantidad : body.cantidad,

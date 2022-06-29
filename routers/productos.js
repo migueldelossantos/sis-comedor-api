@@ -21,7 +21,7 @@ ruta.get('/',verificarToken,(req,res)=>{
 
 //Get By Id
 ruta.get('/:id',verificarToken,(req,res)=>{
-    let resultado = getProductoById(req,params.id);
+    let resultado = getProductoById(req.params.id);
     resultado.then(prod=>{
         res.json({
             producto : prod

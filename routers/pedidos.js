@@ -75,6 +75,11 @@ ruta.delete('/:id',verificarToken,(req,res)=>{
     })
 })
 
+async function getPedidoById(id){
+    let pedido = await Pedido.findById(id);
+    return pedido;
+}
+
 async function getPedidos(){
     let pedidos = await Pedido.find({
         estatus : ['A','P']
@@ -112,7 +117,7 @@ async function actualizarPedido(id,body){
     return pedido;
 }
 
-async function eliminarPedido(){
+async function eliminarPedido(id){
     let pedido = await Pedido.findByIdAndUpdate(id,{
         $set:{
             estatus : 'E'
