@@ -13,7 +13,7 @@ ruta.post('/',(req,res)=>{
             if(data){
                 let passwordValidate = bcrypt.compareSync(req.body.password,data.password);
                 if(!passwordValidate){
-                    return res.json(400).json({
+                    return res.status(400).json({
                         error : 'ok',
                         message : 'Usuario o Contraseña Incorrecta.'
                     })

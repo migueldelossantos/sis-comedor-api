@@ -2,6 +2,7 @@ const express = require('express');
 const morgan = require('morgan');
 const mongoose = require('mongoose');
 const config = require('config');
+const cors = require('cors')
 
 //Autor
 const auth = require('./routers/auth');
@@ -18,6 +19,8 @@ const secciones = require('./routers/secciones');
 const tipoPedidos = require('./routers/tipoPedidos');
 const usuarios = require('./routers/usuarios');
 
+const whiteList = ['http://localhost:4200'];
+
 //DB
 mongoose.connect(
     config.get('configDB.Host'),
@@ -31,6 +34,7 @@ const app = express();
 
 app.use(express.json());
 app.use(express.urlencoded({extended:true}));
+app.use( cors({origin:whiteList}) );
 app.use(morgan('tiny'));
 
 //Ruters Autor
