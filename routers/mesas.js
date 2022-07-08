@@ -22,9 +22,9 @@ ruta.get('/:id',verificarToken,(req,res)=>{
 //Get All
 ruta.get('/',verificarToken,(req,res)=>{
     let resultado = getMesas();
-    resultado.then(ms=>{
+    resultado.then(mesas=>{
         res.json({
-            mesa : ms
+            mesas
         })
     }).catch(err=>{
         res.status(400).json({
@@ -78,7 +78,7 @@ ruta.put('/:id',verificarToken,(req,res)=>{
 async function getMesas(){
     let mesas = await Mesa.find({
         estado : {
-            $in : ["A","C"]
+            $in : ["D","O","A"]
         }
     });
     return mesas;

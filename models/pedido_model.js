@@ -10,7 +10,7 @@ const pedidoShema = mongoose.Schema({
     },
     estatus:{
         type:String,
-        default:'A',
+        default:'A', //A:Activo, C:CAncelado, T:Terminado: E:En Entrega
         length:1,
         index:true
     },
